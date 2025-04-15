@@ -1,0 +1,50 @@
+# Feedback is mavros/global_position/local by default (inverted z-axis velocity)
+odom_global_velocity: false # True if using odometry with velocities in global frame
+odom_local_velocity: true  # True if using odometry with velocities in local frame
+
+# Rates 
+control_timer_rate: 100
+carrot_timer_rate: 50
+status_timer_rate: 20
+watchdog_timer_rate: 50
+
+# Index of the /joy/button array which triggers Carrot Reference
+carrot_index: 5
+
+# Value at the /joy/button[carrot_index] which enables Carrot Reference
+carrot_enable: 1
+
+# Fame ID where the reference is published
+carrot_frame_id: "world"
+
+land:
+  # If using 'carrot_land' this flag is able to automatically disarm the UAV when 
+  # landing is completed. This is needed if using thrust mode (GUID_OPTIONS=8)
+  disarm_enabled: true
+
+  # Speed at which the landing is performed (if carrot_land is true, 
+  # otherwise land speed is dictated by the autopilot)
+  speed: 0.3
+
+takeoff:
+  # Initial reference step before the takeoff ramp during automatic takeoff
+  initial_height: 0.1
+  
+  # Speed at which the takeoff is performed after the initial step
+  speed: 0.2
+
+# Names Of the available controllers
+controllers: [ "ModifiedCascadePID", "CascadePID", "MPC", "Geometric"]
+
+# Controller active by default
+active_controller: "CascadePID"
+
+# Description of the available controllers
+ModifiedCascadePID:
+  type: "uav_ros_control/ModifiedCascadePIDController"
+CascadePID:
+  type: "uav_ros_control/CascadePIDController" 
+MPC:
+  type: "uav_ros_control/ModelPredictiveControl"
+Geometric:
+  type: "uav_ros_control/GeometricControl"

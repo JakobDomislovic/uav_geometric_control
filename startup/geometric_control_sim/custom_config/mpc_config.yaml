@@ -1,0 +1,48 @@
+uav_mass: 14
+climb_rate: false
+
+# thrust [0, 1] = A * sqrt (F) + B
+thrust_model: 
+  A: 0.1217
+  B: -0.36
+
+  mass_gain: 0.25
+  mass_limit: 5.0
+
+# Rotation Error Gain
+k_R: [3,  0,   0, 
+ 0,    3, 0,
+ 0,    0,   1.5]
+
+# Integral gain
+k_I_xy: 0.1
+k_I_xy_lim: 10
+
+solver_xy:
+  verbose: false
+  max_iters: 100
+  Q: [375, 47.5]
+  Q_last: [750, 95]
+  R: [2.0]
+  dt1: 0.01
+  dt2: 0.01
+  max_speed: 10
+  max_u: 50
+  max_du: 100
+  drag: 65.0
+
+  # abs(u[0] - u_last) <= max_du * dt1
+  # abs(u[t] - u[t-1]) <= max_du * dt2
+
+solver_z:
+  verbose: false
+  max_iters: 100
+  Q: [500, 100.0]
+  Q_last: [1000, 200]
+  R: [1.5]
+  dt1: 0.01
+  dt2: 0.01
+  max_speed: 20.0
+  max_u: 10.0
+  max_du: 100.0
+  drag: 25
